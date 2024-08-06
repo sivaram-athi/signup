@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* background-color: bisque; */
+}
+
+body{
+    background-color: bisque !important;
+}
+.main{
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 98vh;
+}
