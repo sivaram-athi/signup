@@ -1,63 +1,58 @@
-var email = document.getElementById('email');
-var password = document.getElementById('password');
-var emailmessage = document.getElementById('emailmessage');
-var pswmessage = document.getElementById('pswmessage');
-var success = document.getElementById('success');
-var submit = document.getElementById('submit');
-var isemail = false;
-var ispswd = false;
+//This function check if both email and password are valid or not and id valid than return All good to go!.
+function allGoodToGo() {
+    let form = document.querySelector('#form_element');
+    let emailValid = checkEmail();
+    let passwordValid = checkPassword();
 
-function checkSuccess() {
-    if(isemail && ispswd) {
-        success.style.display = 'block';
-    } else {
-        success.style.display = 'none';
+    if (emailValid && passwordValid) {
+        let allGoodPara = document.createElement('p');
+        allGoodPara.classList.add('correct');
+        allGoodPara.innerText = `All good to go!`;
+
+        form.appendChild(allGoodPara);
     }
 }
 
-email.addEventListener('keyup', function() {
-    var emailvalue = email.value;
-    if(emailvalue.length > 3) {
-        if (!emailvalue.includes('@') || !emailvalue.includes('.')) {
-            emailmessage.style.display = 'block';
-            isemail = false;
-        } else {
-            emailmessage.style.display = 'none';
-            isemail = true;
-        }
-    } else {
-        emailmessage.style.display = 'block';
-        isemail = false;
+//This is the function which check if email is valid or not and return true if email is valid.
+function checkEmail(){
+    let inputValue = document.getElementById("email").value;
+    let errorPara = document.querySelector('#para1');
+    
+    if(inputValue.length > 2 && inputValue.includes('@') && inputValue.includes('.')){
+        errorPara.style.display = `none`;
+        return true;
     }
-    checkSuccess();
-});
+    else{
+        errorPara.style.display  = `block`;
+        return false;
+    }
+}
 
-password.addEventListener('keyup', function() {
-    var pswdvalue = password.value;
-    if(pswdvalue.length > 8) {
-        pswmessage.style.display = 'none';
-        ispswd = true;
-    } else {
-        pswmessage.style.display = 'block';
-        ispswd = false;
-    }
-    checkSuccess();
-});
 
-document.getElementById('signup-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    if(isemail && ispswd) {
-        var confirmSubmission = confirm('Do you want to submit the form?');
-        if(confirmSubmission) {
-            alert('Successful signup!');
-        } else {
-            email.value = '';
-            password.value = '';
-            isemail = false;
-            emailmessage.style.display = 'block';
-            pswmessage.style.display = 'block';
-            ispswd = false;
-            checkSuccess();
-        }
+//This is the function which check if password is valid or not and return true if password is valid.
+function checkPassword(){
+    let inputValue2 = document.getElementById('password').value;
+    let errorPara2 = document.getElementById('para2');
+
+    if(inputValue2.length > 7){
+        errorPara2.style.display = `none`;
+        return true;
     }
-});
+    else{
+        errorPara2.style.display = `block`;
+        return false;
+    }
+}
+
+//This function give alert message if user confirm that his entries are true.
+function confirmWindow(){
+    let confirm = window.confirm('Are you sure you want to submit?');
+
+    if(confirm === true){
+        alert("successful signup!");
+    }
+    else{
+        //At first I have written all the code to hidded the good to go and para and to display error code but then I remember this code from the course so I use it because it is simple.
+        location.reload();
+    }
+}
